@@ -6,6 +6,6 @@ const app: Express = express();
 
 app.use(express.json());
 
-app.use('/', api);
+app.use('/api', api);
 
 export default app;

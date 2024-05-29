@@ -36,6 +36,10 @@ nivelController.route('/')
 
       const response = await listNivelUseCase.execute();
 
+      if (!response.nivelList.length) {
+        return res.status(404).send({ message: 'No nivel registered!' });
+      }
+
       res.send(response);
     } catch (error) {
       console.error(error);
