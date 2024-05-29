@@ -1,12 +1,10 @@
 import { Nivel } from "../../../domain/models/Nivel";
 import { NivelService } from "../../../domain/services/NivelService";
 
-export class ListNivelUseCase {
+export class DeleteNivelUseCase {
   constructor(private readonly nivelService: NivelService) {}
 
-  async execute(): Promise<Nivel[]> {
-    const nivelList = await this.nivelService.listNivel();
-    
-    return nivelList;
+  async execute(input: number): Promise<void> {
+    await this.nivelService.deleteNivelById(input);
   }
 }

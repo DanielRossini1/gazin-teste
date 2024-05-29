@@ -9,23 +9,31 @@ export class NivelRepositoryImpl implements NivelRepository {
     this.nivelRepository = dataSource.getRepository(Nivel);
   }
 
+  async delete(id: number): Promise<void> {
+    await this.nivelRepository.softDelete(id);
+  }
+
+  async update(data: Nivel): Promise<Nivel> {
+    const updatedNivel = await this.nivelRepository.save({ id: data.id, nivel: data.nivel });
+
+    return updatedNivel;
+  }
+
+  async getById(id: number): Promise<Nivel | null> {
+    const nivel = await this.nivelRepository.findOne({ where: { id } });
+
+    return nivel;
+  }
+
   async create(nivel: string): Promise<Nivel> {
-    try {
-      const createdNivel = await this.nivelRepository.save({ nivel });
-      return createdNivel;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Database Error');
-    }
+    const createdNivel = await this.nivelRepository.save({ nivel });
+
+    return createdNivel;
   }
 
   async list(): Promise<Nivel[]> {
-    try {
-      const nivelList = await this.nivelRepository.find();
-      return nivelList;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Database Error');
-    }
+    const nivelList = await this.nivelRepository.find();
+
+    return nivelList;
   }
 }

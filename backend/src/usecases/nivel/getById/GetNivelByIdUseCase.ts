@@ -1,12 +1,12 @@
 import { Nivel } from "../../../domain/models/Nivel";
 import { NivelService } from "../../../domain/services/NivelService";
 
-export class ListNivelUseCase {
+export class GetNivelByIdUseCase {
   constructor(private readonly nivelService: NivelService) {}
 
-  async execute(): Promise<Nivel[]> {
-    const nivelList = await this.nivelService.listNivel();
+  async execute(input: number): Promise<Nivel | null> {
+    const nivel = await this.nivelService.getNivelById(input);
     
-    return nivelList;
+    return nivel;
   }
 }
