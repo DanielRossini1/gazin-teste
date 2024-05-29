@@ -18,4 +18,14 @@ export class NivelRepositoryImpl implements NivelRepository {
       throw new Error('Database Error');
     }
   }
+
+  async list(): Promise<Nivel[]> {
+    try {
+      const nivelList = await this.nivelRepository.find();
+      return nivelList;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Database Error');
+    }
+  }
 }

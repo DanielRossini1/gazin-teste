@@ -4,6 +4,10 @@ import { NivelRepository } from "../repositories/nivel/NivelRepository";
 export class NivelService {
   constructor(private readonly nivelRepository: NivelRepository) {}
 
+  async listNivel(): Promise<Nivel[]> {
+    return this.nivelRepository.list();
+  }
+
   async createNivel(name: string): Promise<Nivel> {
     // const existingUser = await this.nivelRepository.getByEmail(user.email);
     // if (existingUser) {

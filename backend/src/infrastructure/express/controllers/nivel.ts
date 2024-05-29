@@ -3,6 +3,7 @@ import { appDataSource } from "../../typeorm/data-source";
 import { NivelService } from '../../../domain/services/NivelService';
 import { NivelRepositoryImpl } from '../../persistence/nivel/NivelRepositoryImpl';
 import { CreateNivelUseCase } from '../../../usecases/nivel/create/CreateNivelUseCase';
+import { ListNivelUseCase } from '../../../usecases/nivel/list/ListNivelUseCase';
 
 const nivelController = express.Router();
 
@@ -10,8 +11,8 @@ nivelController.route('/')
   .post(async (req: Request, res: Response) => {
     try {
       const nivelRepository = new NivelRepositoryImpl(appDataSource);
-      const createNivelService = new NivelService(nivelRepository);
-      const createNivelUseCase = new CreateNivelUseCase(createNivelService);
+      const nivelService = new NivelService(nivelRepository);
+      const createNivelUseCase = new CreateNivelUseCase(nivelService);
 
       const { nivel }: { nivel: string } = req.body;
 
@@ -20,6 +21,20 @@ nivelController.route('/')
       }
 
       const response = await createNivelUseCase.execute({ nivel });
+
+      res.send(response);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send();
+    }
+  })
+  .get(async (req: Request, res: Response) => {
+    try {
+      const nivelRepository = new NivelRepositoryImpl(appDataSource);
+      const nivelService = new NivelService(nivelRepository);
+      const listNivelUseCase = new ListNivelUseCase(nivelService);
+
+      const response = await listNivelUseCase.execute();
 
       res.send(response);
     } catch (error) {
