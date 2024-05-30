@@ -3,17 +3,17 @@ import { Entity, Column, PrimaryGeneratedColumn, DeleteDateColumn, CreateDateCol
 @Entity()
 export class Nivel {
   @PrimaryGeneratedColumn()
-  id!: number
+  id: number;
 
   @Column()
   nivel: string;
 
-  @CreateDateColumn({ type: 'timestamptz' })
-  createdAt!: Date;
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at'  })
+  createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt!: Date;
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at'  })
+  updatedAt: Date;
 
-  @DeleteDateColumn({ type: 'timestamptz' })
+  @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at'  })
   deletedAt?: Date;
 }

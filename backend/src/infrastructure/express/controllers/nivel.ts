@@ -40,7 +40,7 @@ nivelController.route('/')
       const response = await listNivelUseCase.execute();
 
       if (!response.length) {
-        return res.status(404).send({ message: 'No nivel registered!' });
+        return res.status(404).send({ message: 'No nivel found!' });
       }
 
       res.send(response);
@@ -98,7 +98,7 @@ nivelController.route('/:id')
 
       await deleteNivelUseCase.execute(parseInt(id))
 
-      res.send({ message: 'Nivel deleted with successful!' })
+      res.status(204).send({ message: 'Nivel deleted with successful!' })
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: 'Internal server error!' });

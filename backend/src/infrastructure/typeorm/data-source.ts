@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import { Nivel } from "../../domain/models/Nivel";
+import { Developer } from "../../domain/models/Developer";
 
 export const appDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ export const appDataSource = new DataSource({
   database: "gazin",
   synchronize: true,
   logging: true,
-  entities: [Nivel],
+  entities: [Nivel, Developer],
   subscribers: [],
   migrations: [],
 });

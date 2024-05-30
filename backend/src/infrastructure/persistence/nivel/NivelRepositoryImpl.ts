@@ -1,6 +1,6 @@
 import { DataSource, Repository } from "typeorm";
 import { Nivel } from "../../../domain/models/Nivel";
-import { NivelRepository } from "../../../domain/repositories/nivel/NivelRepository";
+import { NivelRepository } from "../../../domain/repositories/NivelRepository";
 
 export class NivelRepositoryImpl implements NivelRepository {
   private nivelRepository: Repository<Nivel>;

@@ -1,5 +1,5 @@
 import { Nivel } from "../models/Nivel";
-import { NivelRepository } from "../repositories/nivel/NivelRepository";
+import { NivelRepository } from "../repositories/NivelRepository";
 
 export class NivelService {
   constructor(private readonly nivelRepository: NivelRepository) {}
