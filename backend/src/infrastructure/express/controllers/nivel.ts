@@ -7,6 +7,9 @@ import { ListNivelUseCase } from '../../../usecases/nivel/list/ListNivelUseCase'
 import { GetNivelByIdUseCase } from '../../../usecases/nivel/getById/GetNivelByIdUseCase';
 import { UpdateNivelUseCase } from '../../../usecases/nivel/update/UpdateNivelUseCase';
 import { DeleteNivelUseCase } from '../../../usecases/nivel/delete/DeleteNivelUseCase';
+import { ListDeveloperByNivelIdUseCase } from '../../../usecases/developer/listByNivel/ListDeveloperByNivelIdUseCase';
+import { DeveloperRepositoryImpl } from '../../persistence/developer/DeveloperRepositoryImpl';
+import { DeveloperService } from '../../../domain/services/DeveloperService';
 
 const nivelController = express.Router();
 
@@ -94,11 +97,24 @@ nivelController.route('/:id')
         return res.status(404).send({ message: 'Nivel not found!' });
       }
 
+      const developerRepository = new DeveloperRepositoryImpl(appDataSource);
+      const developerService = new DeveloperService(developerRepository);
+      const listDeveloperByNivelId = new ListDeveloperByNivelIdUseCase(developerService);
+
+      const developerRelations = await listDeveloperByNivelId.execute(nivel.id);
+
+      if (developerRelations.length) {
+        return res.status(400).send({
+          message: 'Nivel has developers relations!',
+          developers: developerRelations
+        });
+      }
+
       const deleteNivelUseCase = new DeleteNivelUseCase(nivelService);
 
-      await deleteNivelUseCase.execute(parseInt(id))
+      await deleteNivelUseCase.execute(nivel.id);
 
-      res.status(204).send({ message: 'Nivel deleted with successful!' })
+      res.status(204).send();
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: 'Internal server error!' });

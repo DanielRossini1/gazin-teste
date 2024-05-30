@@ -1,6 +1,7 @@
 import { Nivel } from "../../../domain/models/Nivel";
 
-export interface CreateDeveloperInput {
+export interface UpdateDeveloperInput {
+  id: number;
   nivel: Nivel;
   nome: string;
   sexo: string;

@@ -1,12 +1,14 @@
 import { Developer } from "../../../domain/models/Developer";
 import { DeveloperService } from "../../../domain/services/DeveloperService";
-import { CreateDeveloperInput } from "./CreateDeveloperInput";
+import { UpdateDeveloperInput } from "./UpdateDeveloperInput";
 
-export class CreateDeveloperUseCase {
+
+export class UpdateDeveloperUseCase {
   constructor(private readonly developerService: DeveloperService) {}
 
-  async execute(input: CreateDeveloperInput): Promise<Developer> {
+  async execute(input: UpdateDeveloperInput): Promise<Developer> {
     const developer = new Developer();
+    developer.id = input.id;
     developer.nivel = input.nivel;
     developer.nome = input.nome;
     developer.dataNascimento = input.dataNascimento;
@@ -14,8 +16,8 @@ export class CreateDeveloperUseCase {
     developer.hobby = input.hobby;
     developer.sexo = input.sexo;
 
-    const createdDeveloper = await this.developerService.createDeveloper(developer);
+    const updatedDeveloper = await this.developerService.updateDeveloper(developer);
 
-    return createdDeveloper;
+    return updatedDeveloper;
   }
 }

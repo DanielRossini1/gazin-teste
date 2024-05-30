@@ -8,7 +8,7 @@ export class Developer {
 
   @ManyToOne(() => Nivel)
   @JoinColumn({ name: 'nivel_id' })
-  nivelId: Nivel;
+  nivel: Nivel;
 
   @Column()
   nome: string;
