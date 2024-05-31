@@ -4,8 +4,7 @@ const API_URL = 'http://localhost:3000/api';
 
 export async function fetchDevelopers(): Promise<Developer[]> {
   const response = await fetch(`${API_URL}/desenvolvedores`);
-  const data = await response.json();
-  return data;
+  return response.json();
 }
 
 export async function updateDeveloper(id: number, developer: Developer): Promise<Developer> {
