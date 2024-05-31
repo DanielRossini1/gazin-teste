@@ -64,7 +64,7 @@ developerController.route('/')
       const response = await listDeveloperUseCase.execute();
 
       if (!response.length) {
-        res.status(404).send({ message: 'No developer found!' });
+        return res.status(404).send({ message: 'No developer found!' });
       }
 
       res.status(200).send(response);
