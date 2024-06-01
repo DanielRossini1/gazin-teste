@@ -18,13 +18,14 @@ const useFetchData = <T,>(url: string): FetchData<T> => {
 
     try {
       const response = await fetch(url);
-
-      if (!response.ok) {
+      if (response.status === 404) {
+        setData([] as unknown as T);
+      } else if (!response.ok) {
         throw new Error(`Erro: ${response.status}`);
+      } else {
+        const result = await response.json();
+        setData(result);
       }
-      
-      const result = await response.json();
-      setData(result);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
